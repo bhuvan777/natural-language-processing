@@ -46,28 +46,35 @@ def load_embeddings(embeddings_path):
     ########################
     #### YOUR CODE HERE ####
     ########################
+    wv_embeddings= gensim.api_load(embeddings_path)
+    return wv_embeddings, wv_embeddings.shape[0]
 
     # remove this when you're done
-    raise NotImplementedError(
-        "Open utils.py and fill with your code. In case of Google Colab, download"
-        "(https://github.com/hse-aml/natural-language-processing/blob/master/project/utils.py), "
-        "edit locally and upload using '> arrow on the left edge' -> Files -> UPLOAD")
+    #raise NotImplementedError(
+     #   "Open utils.py and fill with your code. In case of Google Colab, download"
+      #  "(https://github.com/hse-aml/natural-language-processing/blob/master/project/utils.py), "
+       # "edit locally and upload using '> arrow on the left edge' -> Files -> UPLOAD")
 
 
 def question_to_vec(question, embeddings, dim):
     """Transforms a string to an embedding by averaging word embeddings."""
 
     # Hint: you have already implemented exactly this function in the 3rd assignment.
-
+    vec= np.zeros((dim,), dtype=np.float32)
+    count=0
+    for str in question.split():
+        if str in embeddings():
+            vec += embeddings[str]
+            count+=1
+    if count==0:
+        return vec
+    return vec/count
     ########################
     #### YOUR CODE HERE ####
     ########################
 
     # remove this when you're done
-    raise NotImplementedError(
-        "Open utils.py and fill with your code. In case of Google Colab, download"
-        "(https://github.com/hse-aml/natural-language-processing/blob/master/project/utils.py), "
-        "edit locally and upload using '> arrow on the left edge' -> Files -> UPLOAD")
+    
 
 
 def unpickle_file(filename):
